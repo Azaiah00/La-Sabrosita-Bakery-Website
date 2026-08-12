@@ -1,0 +1,36 @@
+# =====================================================================
+# Netlify configuration — DEMO DEPLOY ONLY
+# ---------------------------------------------------------------------
+# This site is the sales demo. There is no Supabase project, no Stripe
+# account and no Twilio number yet, so the build MUST run in demo mode:
+# every read goes through the in-memory fixture adapter in
+# src/lib/data/demo, exactly like `npm run demo` does locally.
+#
+# Without these variables `next build` resolves `db` to the Supabase
+# adapter, which throws "Supabase adapter not wired yet" the moment
+# generateStaticParams asks for the menu. That is the build failure this
+# file fixes.
+#
+# AFTER THE CLIENT BUYS: delete the three variables below, add the real
+# Supabase / Stripe / Resend / Twilio keys in the Netlify UI, and the
+# guard in next.config.ts goes back to blocking demo bundles.
+# =====================================================================
+
+[build]
+  # `demo:build` is the only sanctioned way to produce a demo bundle —
+  # see the guard at the top of next.config.ts.
+  command = "npm run demo:build"
+  publish = ".next"
+
+[build.environment]
+  # Serve fixtures instead of touching a database. Read at build time AND
+  # inlined into the client bundle because of the NEXT_PUBLIC_ prefix.
+  NEXT_PUBLIC_DEMO_MODE = "true"
+  # Tells next.config.ts this demo bundle is intentional, not an accident.
+  ALLOW_DEMO_BUILD = "true"
+  # Prices, hours and the founding year are still placeholders. Without
+  # this, CONFIRM_WITH_CLIENT() throws during the production build.
+  ALLOW_UNCONFIRMED = "true"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
