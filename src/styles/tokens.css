@@ -1,0 +1,183 @@
+/* =====================================================================
+   TOKENS — copied verbatim from DESIGN.md §2 (color), §3.1 (type scale)
+   and §4 (space / radius / shadow).
+
+   #D16639, #E2AA67 and #191918 were SAMPLED pixel-by-pixel from the
+   client's logo file. They are not estimates. Do not re-derive them and
+   do not "improve" a value.
+
+   This file is the only place in src/ where a hex literal may appear.
+   ===================================================================== */
+
+:root {
+  /* Light — the default. Warm paper. */
+  --bg:            #FDFBF6;
+  --bg-alt:        #F6EFE2;
+  --surface:       #FFFFFF;
+  --surface-sunk:  #F1E7D6;
+  --ink:           #191918;   /* SAMPLED */
+  --ink-muted:     #6B6157;
+  --line:          #E4D8C4;   /* decorative hairlines only */
+  --line-strong:   #A88F62;   /* functional borders: inputs, controls */
+
+  --accent:        #D16639;   /* SAMPLED — fills, badges, large display type */
+  --accent-ink:    #191918;   /* text ON --accent */
+  --accent-strong: #B85328;   /* filled buttons w/ white text; accent link text */
+  --accent-hover:  #9E4420;
+  --accent-soft:   #F7E3D6;
+
+  --wheat:         #E2AA67;   /* SAMPLED */
+  --wheat-soft:    #F3E0C4;
+
+  --success:       #3F6B43;
+  --warn:          #C98A16;   /* pair with --ink, never white */
+  --danger:        #A83232;
+  --info:          #3F6F86;
+
+  /* Modal scrim. Ink at 50%, never a raw black — pure black over warm
+     paper reads grey-blue and fights the palette. */
+  --scrim:         rgb(25 25 24 / .5);
+
+  /* ---- Chart categorical palette -----------------------------------
+     Four slots, FIXED ORDER, assigned in sequence and never cycled —
+     the order is the colourblind-safety mechanism. Slot 1 is the brand
+     terracotta, so the primary series is always the accent.
+
+     Validated with the dataviz validator against this surface (#FDFBF6):
+       lightness band  PASS   chroma floor    PASS
+       CVD separation  PASS   worst adjacent green↔amber ΔE 16.1 (protan)
+       normal-vision   PASS   worst adjacent blue↔terracotta ΔE 24.7
+       contrast        PASS   all 4 ≥ 3:1
+     Re-run the validator before changing any of these four values.
+
+     These are NOT the status tokens. --success / --warn / --danger keep
+     their reserved meaning and never stand in for "series 4". */
+  --chart-1:       #B85328;   /* terracotta — primary series */
+  --chart-2:       #1F6F9C;   /* blue */
+  --chart-3:       #BC8317;   /* amber */
+  --chart-4:       #24632F;   /* green */
+
+  /* Recessive furniture. Grid and axes must not compete with the data. */
+  --chart-grid:    #E4D8C4;
+  --chart-axis:    #6B6157;
+  /* The 25–35% healthy band behind the food-cost line. */
+  --chart-band:    rgb(184 83 40 / .10);
+
+  /* On-accent text for the "primary on photo" button treatment.
+     DESIGN.md §6: white on --accent-strong is 4.88:1, AA. */
+  --on-accent-strong: #FFFFFF;
+
+  /* ---- Space (DESIGN.md §4) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+
+  /* ---- Radius ---- */
+  --radius-sm:   8px;    /* chips, badges, inputs */
+  --radius:      14px;   /* buttons, small cards */
+  --radius-lg:   28px;   /* product cards, panels */
+  --radius-xl:   48px;   /* chamber corners on mobile */
+  --radius-2xl:  80px;   /* chamber corners on desktop */
+  --radius-pill: 999px;
+
+  /* ---- Shadow ---- */
+  --shadow-sm: 0 1px 2px rgb(25 25 24 / .05);
+  --shadow:    0 8px 24px -12px rgb(25 25 24 / .16);
+  --shadow-lg: 0 24px 60px -28px rgb(25 25 24 / .28);
+  /* DESIGN.md §6, portal treatment: cards are flat with a single
+     0 4px 16px -8px shadow — hairlines are the structural device, not
+     heavy panels. */
+  --shadow-portal-card: 0 4px 16px -8px rgb(25 25 24 / .28);
+
+  --border-chamber: 2px;   /* the ink border between chambers */
+  --border-hairline: 1px;
+
+  /* ---- Layout rhythm (DESIGN.md §4) ---- */
+  --content-max: 1200px;
+  --prose-max:   68ch;
+  --menu-col-max: 640px;
+
+  /* ---- Type families (DESIGN.md §3) ---- */
+  --font-display: var(--font-eb-garamond), Georgia, 'Times New Roman', serif;
+  --font-ui:      var(--font-figtree), system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- Type scale (DESIGN.md §3.1) ---- */
+  --t-hero:    clamp(2.75rem, 9vw, 7.5rem);
+  --t-h1:      clamp(2.25rem, 6vw, 4.5rem);
+  --t-h2:      clamp(1.75rem, 4vw, 3rem);
+  --t-h3:      clamp(1.375rem, 2.5vw, 1.875rem);
+  --t-eyebrow: 0.8125rem;
+  --t-body-lg: 1.1875rem;
+  --t-body:    1.0625rem;
+  --t-menu:    1.0625rem;   /* minimum — menu copy never drops below 17px */
+  --t-small:   0.9375rem;
+  --t-price:   1.0625rem;
+
+  --lh-hero: 0.95;
+  --lh-h1:   1.03;
+  --lh-h2:   1.1;
+  --lh-h3:   1.2;
+
+  --tr-hero: -0.02em;
+  --tr-h1:   -0.015em;
+  --tr-h2:   -0.01em;
+  --tr-eyebrow: 0.14em;
+}
+
+[data-theme="dark"] {
+  --bg:            #16130F;
+  --bg-alt:        #1F1A15;
+  --surface:       #241E18;
+  --surface-sunk:  #120F0C;
+  --ink:           #F7F1E6;
+  --ink-muted:     #B7A996;
+  --line:          #382E24;
+  --line-strong:   #7A6850;
+
+  --accent:        #E8794A;
+  --accent-ink:    #16130F;   /* DARK ink on the accent. Never white. */
+  --accent-strong: #E8794A;
+  --accent-hover:  #F08E62;
+  --accent-soft:   #33211A;
+
+  --wheat:         #E2AA67;
+  --wheat-soft:    #3A2C1C;
+
+  --success:       #6FA873;
+  --warn:          #E0AC46;
+  --danger:        #D96B6B;
+  --info:          #7FA9BF;
+
+  /* Deeper on velvet — a 50% scrim over a near-black chamber does not
+     separate the modal from the page behind it. */
+  --scrim:         rgb(10 8 6 / .72);
+
+  /* Dark-mode chart slots are SELECTED, not an automatic flip of the
+     light ones — re-stepped and re-validated against the dark chart
+     surface (#241E18):
+       lightness band  PASS   chroma floor    PASS
+       CVD separation  PASS   worst adjacent green↔amber ΔE 9.3 (protan)
+       normal-vision   PASS   ΔE 17.8
+       contrast        PASS   all 4 ≥ 3:1
+     Same entity per slot as light mode, so a series keeps its identity
+     when the theme changes. */
+  --chart-1:       #D9683C;
+  --chart-2:       #3F90BE;
+  --chart-3:       #BA8A2A;
+  --chart-4:       #3F7F4C;
+
+  --chart-grid:    #382E24;
+  --chart-axis:    #B7A996;
+  --chart-band:    rgb(217 104 60 / .14);
+
+  /* On dark, text on the accent is --accent-ink. White is a 2.89:1 hard fail. */
+  --on-accent-strong: #16130F;
+}

@@ -1,0 +1,28 @@
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { FlatCompat } from '@eslint/eslintrc'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({ baseDirectory: __dirname })
+
+const eslintConfig = [
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'plugin:jsx-a11y/recommended'),
+  {
+    ignores: ['.next/**', 'node_modules/**', 'playwright-report/**', 'test-results/**'],
+  },
+  {
+    rules: {
+      // Spanish and English copy both live in JSON message catalogues; raw
+      // apostrophes inside TSX are a real bug, not a style preference.
+      'react/no-unescaped-entities': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
+  },
+]
+
+export default eslintConfig

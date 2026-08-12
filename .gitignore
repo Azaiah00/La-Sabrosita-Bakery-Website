@@ -1,0 +1,66 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# production
+dist/
+
+# env — never commit a real key
+.env
+.env.local
+.env*.local
+.env.production
+!.env.local.example
+
+# supabase
+.branches
+.temp
+supabase/.temp/
+supabase/.branches/
+
+# testing
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# os
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editor
+.idea/
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+
+# client assets that are large or not ours to redistribute —
+# keep originals in cloud storage, commit only the web exports
+/photography-originals/
+*.psd
+*.ai
+*.CR2
+*.NEF

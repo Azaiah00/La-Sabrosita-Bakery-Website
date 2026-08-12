@@ -1,0 +1,517 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/marketing.css";
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 6px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-muted);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) var(--bg);
+}
+
+/* Our theme switches on `[data-theme="dark"]`, not on the OS preference.
+   shadcn primitives ship `dark:` variants; without this they would fire on
+   `prefers-color-scheme` while the tokens did not, giving light text on a
+   light surface for anyone whose OS is dark but who chose the light theme. */
+@custom-variant dark ([data-theme="dark"] &);
+
+/* ---------------------------------------------------------------------
+   shadcn/ui semantic layer, re-tokenized to DESIGN.md.
+
+   shadcn primitives are written against `background`, `foreground`,
+   `border`, `ring`, `muted`, `destructive` and friends. Rather than ship
+   shadcn's default palette, every one of those roles is bound to a token
+   from DESIGN.md §2 — so a shadcn component cannot render an off-brand
+   color even by accident.
+
+   One deliberate exception: shadcn uses `accent` for subtle hover
+   surfaces. Ours is the terracotta, and DESIGN.md §2.3 allows exactly one
+   accent. Every generated primitive has its hover surface re-tokenized to
+   `surface-sunk` — see components/ui.
+   --------------------------------------------------------------------- */
+:root {
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  --secondary: var(--bg-alt);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface-sunk);
+  --muted-foreground: var(--ink-muted);
+  --accent-foreground: var(--accent-ink);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--surface);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--accent-strong);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-sunk: var(--surface-sunk);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-wheat: var(--wheat);
+  --color-wheat-soft: var(--wheat-soft);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  /* shadcn role names, bound to the tokens above. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-scrim: var(--scrim);
+
+  --font-display: var(--font-eb-garamond), Georgia, serif;
+  --font-ui: var(--font-figtree), system-ui, sans-serif;
+
+  /* DESIGN.md §3.1. Exposed as Tailwind keys so a primitive reaches for
+     `text-body` (17px) rather than `text-sm` (Tailwind's 14px). Menu-
+     adjacent copy never drops below 17px — the buyer is standing at a
+     counter, in Spanish, often holding a child. */
+  --text-eyebrow: var(--t-eyebrow);
+  --text-small: var(--t-small);
+  --text-body: var(--t-body);
+  --text-body-lg: var(--t-body-lg);
+  --text-menu: var(--t-menu);
+  --text-price: var(--t-price);
+
+  /* DESIGN.md §4. `xs` and `md` exist only because shadcn primitives ask
+     for them by name — both resolve to a real token rather than to a
+     Tailwind default, so `rounded-md` cannot smuggle in 6px. */
+  --radius-xs: 8px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius: 14px;
+  --radius-lg: 28px;
+  --radius-xl: 48px;
+  --radius-2xl: 80px;
+
+  --shadow-card: var(--shadow-portal-card);
+}
+
+html { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display { font-family: var(--font-display); font-weight: 400; }
+
+:focus-visible {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Primitives used before PROMPT-03 lands the real marketing components.
+   Everything here reads from tokens.css; no literal color appears below.
+   --------------------------------------------------------------------- */
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: calc(var(--demo-banner-h, 0px) + var(--space-2));
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--border-chamber) solid var(--ink);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 600;
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: var(--t-eyebrow);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink-muted);
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+/* The chamber system lives in styles/marketing.css — DESIGN.md §5. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  min-width: 48px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--t-body);
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn:hover { transform: translateY(-2px); }
+}
+.btn:active { transform: translateY(0); }
+
+.btn--primary { background: var(--accent); color: var(--accent-ink); border: var(--border-chamber) solid transparent; }
+.btn--secondary { background: transparent; color: var(--ink); border: var(--border-chamber) solid var(--ink); }
+.btn--ghost {
+  background: transparent;
+  color: var(--accent-strong);
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  padding-inline: var(--space-2);
+}
+
+/* ---------------------------------------------------------------------
+   Page furniture. Laid out for the SPANISH string — it runs 15–20%
+   longer than the English, so nothing here is sized to the English fit.
+   --------------------------------------------------------------------- */
+
+.page-head { padding-block: var(--space-8) var(--space-6); max-width: var(--prose-max); }
+.page-head__title { font-size: var(--t-h1); line-height: var(--lh-h1); letter-spacing: var(--tr-h1); margin: var(--space-3) 0 0; }
+.page-head__intro { font-size: var(--t-body-lg); color: var(--ink-muted); margin: var(--space-4) 0 0; }
+.page-head__note { font-size: var(--t-small); color: var(--ink-muted); margin: var(--space-3) 0 0; }
+
+.home-hero__title { font-size: var(--t-hero); line-height: var(--lh-hero); letter-spacing: var(--tr-hero); margin: var(--space-4) 0 0; max-width: 18ch; }
+.home-facts { display: grid; gap: var(--space-5); margin-block: var(--space-7) 0; }
+.home-facts dt { font-size: var(--t-eyebrow); letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--ink-muted); }
+.home-facts dd { margin: var(--space-2) 0 0; }
+.home-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-block-start: var(--space-7); }
+.home-scaffold-note { margin-block-start: var(--space-7); font-size: var(--t-small); color: var(--ink-muted); }
+@media (min-width: 640px) { .home-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---- Menu (DESIGN.md §6, list density) ---- */
+
+.menu { display: grid; gap: var(--space-9); padding-block-end: var(--space-9); }
+.menu-section__heading { font-size: var(--t-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); margin: 0 0 var(--space-5); }
+.menu-section__empty { color: var(--ink-muted); }
+.menu-section__list { list-style: none; margin: 0; padding: 0; max-width: var(--menu-col-max); }
+
+.menu-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-block: var(--space-4);
+  border-block-start: var(--border-hairline) solid var(--line);
+}
+.menu-row:first-child { border-block-start: 0; }
+/* An 86'd item stays legible but is visibly off the board today. */
+.menu-row[data-sold-out] { opacity: 0.55; }
+
+.menu-row__body { flex: 1 1 20ch; }
+.menu-row__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-menu);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.menu-row__chip {
+  background: var(--danger);
+  color: var(--surface);
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+  font-weight: 600;
+  /* §4: chips and badges are 8px, not a pill. */
+  border-radius: var(--radius-sm);
+  padding: 1px var(--space-3);
+}
+.menu-row__gloss { margin: var(--space-1) 0 0; font-size: var(--t-small); color: var(--ink-muted); }
+.menu-row__desc { margin: var(--space-2) 0 0; font-size: var(--t-small); color: var(--ink-muted); max-width: 46ch; }
+.menu-row__oven { margin: var(--space-2) 0 0; font-size: var(--t-small); color: var(--accent-strong); }
+
+/* No leader dots. Prices are NOT aligned into a scannable column —
+   guests should read the food first. */
+.menu-row__prices { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); justify-items: end; text-align: end; }
+.menu-row__price-item { display: flex; align-items: baseline; gap: var(--space-3); }
+.menu-row__label { font-size: var(--t-small); color: var(--ink-muted); }
+.menu-row__price { font-weight: 600; font-size: var(--t-price); font-variant-numeric: tabular-nums; }
+/* Provisional until re-quoted. Visible, not decorative. */
+.menu-row__price[data-provisional='true'] {
+  border-block-end: 1px dotted var(--line-strong);
+}
+
+/* ---- Orders ---- */
+
+.order-lines { list-style: none; margin: var(--space-5) 0 0; padding: 0; max-width: var(--menu-col-max); }
+.order-line { display: flex; justify-content: space-between; gap: var(--space-5); padding-block: var(--space-3); border-block-start: var(--border-hairline) solid var(--line); }
+.order-line:first-child { border-block-start: 0; }
+.order-line--total { font-weight: 700; border-block-start: var(--border-chamber) solid var(--ink); }
+.order-total { font-weight: 700; font-size: var(--t-h3); margin-block-start: var(--space-4); }
+.order-pickup { margin-block-start: var(--space-4); color: var(--ink-muted); }
+.pay-summary { margin-block-start: var(--space-5); }
+.pay-summary__pickup { color: var(--ink-muted); }
+
+/* ---- Demo checkout ---- */
+
+.pay { margin-block: var(--space-7); max-width: 34rem; }
+.pay__card { border: var(--border-hairline) solid var(--line-strong); border-radius: var(--radius-lg); padding: var(--space-5); background: var(--surface); }
+.pay__label { display: block; font-size: var(--t-small); color: var(--ink-muted); margin-block-end: var(--space-2); }
+.pay__input {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-hairline) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunk);
+  color: var(--ink-muted);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.pay__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-block-start: var(--space-4); }
+.pay__note { margin-block-start: var(--space-3); font-size: var(--t-small); color: var(--ink-muted); }
+.pay__button { margin-block-start: var(--space-5); width: 100%; }
+.pay__disclaimer { margin-block-start: var(--space-3); font-size: var(--t-small); color: var(--ink-muted); text-align: center; }
+.pay__spinner {
+  width: 1em; height: 1em;
+  border: 2px solid currentColor;
+  border-block-start-color: transparent;
+  border-radius: var(--radius-pill);
+  animation: pay-spin 700ms linear infinite;
+}
+@keyframes pay-spin { to { transform: rotate(360deg); } }
+
+/* ---- Role cards (demo only) ---- */
+
+.role-cards { list-style: none; margin: var(--space-6) 0 var(--space-9); padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 640px) { .role-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.role-card {
+  width: 100%;
+  min-height: 96px;
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  text-align: start;
+  padding: var(--space-5);
+  border: var(--border-chamber) solid var(--ink);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+@media (prefers-reduced-motion: no-preference) { .role-card:hover { transform: translateY(-2px); } }
+.role-card:hover { background: var(--accent-soft); }
+.role-card__title { font-family: var(--font-display); font-size: var(--t-h3); }
+.role-card__desc { font-size: var(--t-small); color: var(--ink-muted); }
+
+/* ---------------------------------------------------------------------
+   Demo chrome — PROMPT-00 Parts D and E.
+   None of this renders in a non-demo build.
+   --------------------------------------------------------------------- */
+
+.has-demo-banner { --demo-banner-h: 32px; padding-top: var(--demo-banner-h); }
+
+.demo-banner {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 90;
+  min-height: var(--demo-banner-h, 32px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-4);
+  background: var(--wheat);
+  color: var(--ink);            /* 8.53:1 on --wheat — AAA */
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+  line-height: 1.4;
+  border-block-end: var(--border-hairline) solid var(--ink);
+}
+
+/* Mobile: the strip wraps to two rows and covers the sticky header.
+   Keep it on desktop only (900px matches the marketing layout breakpoint). */
+@media (max-width: 899px) {
+  .has-demo-banner {
+    --demo-banner-h: 0px;
+    padding-top: 0;
+  }
+  .demo-banner {
+    display: none;
+  }
+}
+
+.demo-banner__text { margin: 0; }
+.demo-banner__label { font-weight: 700; letter-spacing: 0.06em; }
+.demo-banner__note { color: var(--ink); }
+
+.demo-banner__controls { display: flex; align-items: center; gap: var(--space-2); }
+.demo-banner__locales { display: flex; gap: var(--space-1); }
+
+.demo-banner__btn {
+  position: relative;
+  min-height: 28px;
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-hairline) solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* The strip is 32px by design, so the visible control cannot be 44px tall.
+   This extends the POINTER target past the paint without moving anything. */
+.demo-banner__btn::after { content: ''; position: absolute; inset: -8px; }
+.demo-banner__btn:hover { background: var(--wheat-soft); }
+.demo-banner__btn[aria-current='true'] { background: var(--ink); color: var(--wheat); }
+.demo-banner__btn:disabled { opacity: 0.6; cursor: progress; }
+
+.demo-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+.demo-drawer__scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: var(--scrim);
+  cursor: pointer;
+}
+
+.demo-drawer__panel {
+  position: relative;
+  width: min(560px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  background: var(--surface);
+  color: var(--ink);
+  border-inline-start: var(--border-chamber) solid var(--ink);
+  padding: var(--space-5);
+  padding-block-start: calc(var(--demo-banner-h, 32px) + var(--space-5));
+}
+
+.demo-drawer__head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.demo-drawer__title { font-size: var(--t-h3); line-height: var(--lh-h3); margin: 0; }
+.demo-drawer__close { min-height: 44px; padding: var(--space-2) var(--space-4); font-size: var(--t-small); }
+.demo-drawer__intro { color: var(--ink-muted); font-size: var(--t-small); margin: var(--space-3) 0 var(--space-5); }
+.demo-drawer__empty { color: var(--ink-muted); }
+.demo-drawer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-5); }
+
+.demo-message {
+  border: var(--border-hairline) solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--bg);
+}
+.demo-message__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--t-small); }
+.demo-message__channel {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border-radius: var(--radius-pill);
+  padding: 2px var(--space-3);
+  font-weight: 600;
+}
+.demo-message__locale { border: var(--border-hairline) solid var(--line-strong); border-radius: var(--radius-pill); padding: 2px var(--space-2); }
+.demo-message__time { color: var(--ink-muted); margin-inline-start: auto; }
+.demo-message__to, .demo-message__subject { margin: var(--space-2) 0 0; font-size: var(--t-small); }
+.demo-message__label { color: var(--ink-muted); }
+.demo-message__frame { width: 100%; min-height: 320px; margin-block-start: var(--space-3); border: var(--border-hairline) solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.demo-message__sms {
+  margin-block-start: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface-sunk);
+  border-radius: var(--radius);
+  white-space: pre-wrap;
+  font-family: var(--font-ui);
+  font-size: var(--t-small);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
