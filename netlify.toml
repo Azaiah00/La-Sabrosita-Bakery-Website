@@ -20,7 +20,8 @@
   # `demo:build` is the only sanctioned way to produce a demo bundle —
   # see the guard at the top of next.config.ts.
   command = "npm run demo:build"
-  publish = ".next"
+  # Do NOT set publish here — @netlify/plugin-nextjs owns the output path.
+  # Pointing publish at `.next` serves raw build artifacts and CSS/JS 404.
 
 [build.environment]
   # Serve fixtures instead of touching a database. Read at build time AND

@@ -2,9 +2,17 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { StaffShell } from '@/components/portal/staff-shell'
+import { StaffTopBar } from '@/components/portal/staff-topbar'
 import { currentRole, staffLocale, canSeeAdmin } from '@/lib/auth/role'
+import type { Viewport } from 'next'
 
 export const metadata = { robots: { index: false, follow: false } }
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 /**
  * The owner's side of the house.
@@ -23,6 +31,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     const t = await getTranslations({ locale, namespace: 'staff' })
     return (
       <StaffShell locale={locale}>
+        <StaffTopBar locale={locale} showPortalLink />
         <main id="contenido" className="shell">
           <header className="page-head">
             <h1 className="page-head__title">{t('forbiddenTitle')}</h1>
@@ -38,5 +47,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     )
   }
 
-  return <StaffShell locale={locale}>{children}</StaffShell>
+  return (
+    <StaffShell locale={locale}>
+      <StaffTopBar locale={locale} showPortalLink />
+      {children}
+    </StaffShell>
+  )
 }

@@ -3,7 +3,7 @@
 
 Prepared: 12 August 2026
 Client: La Sabrosita Bakery — 7730 Midlothian Turnpike # A, Richmond, VA 23235
-Prepared for: Frederick / Real Estate Advancement
+Prepared for: Azaiah / Couture House Co.
 Build target: Cursor AI agents + Claude Code · repo `C:\Users\azaia\OneDrive\La-Sabrosita-Bakery-Website`
 
 ---

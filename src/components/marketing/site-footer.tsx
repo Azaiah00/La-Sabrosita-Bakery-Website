@@ -27,7 +27,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="site-footer" data-theme="dark">
       <div className="site-footer__inner">
         <div className="site-footer__col">
-          <div style={{ marginBottom: 'var(--space-4)' }}>
+          <div className="site-footer__brand">
             <LogoDraw size={64} />
           </div>
           <h2 className="site-footer__heading">{t('visitHeading')}</h2>

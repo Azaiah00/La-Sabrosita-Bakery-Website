@@ -134,7 +134,7 @@
   --shadow-card: var(--shadow-portal-card);
 }
 
-html { color-scheme: light; }
+html { color-scheme: light; overflow-x: clip; -webkit-text-size-adjust: 100%; }
 html[data-theme="dark"] { color-scheme: dark; }
 
 body {
@@ -144,7 +144,12 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
+
+/* Media and long strings must never force horizontal scroll on phones. */
+img, video, svg { max-width: 100%; }
+:where(a, p, address, td, th) { overflow-wrap: anywhere; }
 
 h1, h2, h3, .display { font-family: var(--font-display); font-weight: 400; }
 
@@ -200,6 +205,10 @@ h1, h2, h3, .display { font-family: var(--font-display); font-weight: 400; }
   max-width: var(--content-max);
   margin-inline: auto;
   padding-inline: var(--space-5);
+}
+
+@media (max-width: 479px) {
+  .shell { padding-inline: var(--space-4); }
 }
 
 /* The chamber system lives in styles/marketing.css — DESIGN.md §5. */

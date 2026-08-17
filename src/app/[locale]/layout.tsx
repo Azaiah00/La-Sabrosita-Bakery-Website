@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
 import { EB_Garamond, Figtree } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
@@ -37,6 +37,12 @@ const figtree = Figtree({
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 }
 
 export async function generateMetadata({

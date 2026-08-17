@@ -27,19 +27,19 @@ export default async function OurStoryPage({ params }: { params: Params }) {
           <h1 className="page-head__title">{t('title')}</h1>
         </header>
       </div>
-      
+
       <Chamber tone="paper">
-        <div style={{ maxWidth: '800px', margin: '0 auto', fontSize: 'var(--t-base)', lineHeight: 1.6 }}>
-          <p style={{ marginBottom: '1rem' }}>{t('p1')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p2')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p3')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p4')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p5')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p6')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p7')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p8')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p9')}</p>
-          <p style={{ marginBottom: '1rem' }}>{t('p10')}</p>
+        <div className="story-page">
+          <p>{t('p1')}</p>
+          <p>{t('p2')}</p>
+          <p>{t('p3')}</p>
+          <p>{t('p4')}</p>
+          <p>{t('p5')}</p>
+          <p>{t('p6')}</p>
+          <p>{t('p7')}</p>
+          <p>{t('p8')}</p>
+          <p>{t('p9')}</p>
+          <p>{t('p10')}</p>
         </div>
       </Chamber>
     </main>

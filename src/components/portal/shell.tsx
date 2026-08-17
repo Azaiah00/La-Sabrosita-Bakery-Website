@@ -55,18 +55,16 @@ export async function PortalShell({
 
       <div className="portal-main">
         <header className="portal-head">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+          <div className="portal-head__start">
             <PortalBackButton label={t('back')} />
-            {/* Everything on these screens is time-sensitive, so the clock
-                is Richmond time, always, and it says so. */}
             <PortalClock locale={locale} />
           </div>
-          <div className="portal-head__out" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-            <Link href="/" className="btn btn--secondary" style={{ padding: 'var(--space-2) var(--space-3)', height: 'auto', minHeight: '44px', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <Store size={18} aria-hidden="true" />
-              <span>{t('backToWebsite')}</span>
+          <div className="portal-head__out">
+            <Link href="/" className="btn btn--secondary portal-head__website">
+              <Store size={18} aria-hidden="true" className="portal-head__website-icon" />
+              <span className="portal-head__website-label">{t('backToWebsite')}</span>
             </Link>
-            <form action={signOut} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+            <form action={signOut} className="portal-head__signout-form">
               <p className="portal-head__role">{t(`role_${role}`)}</p>
               <button type="submit" className="portal-head__signout">
                 {t('signOut')}

@@ -132,7 +132,6 @@ export default async function HomePage({
                 src="/images/family.png"
                 alt={t('story.photoAlt')}
                 className="story__img"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--radius-lg)' }}
               />
             </div>
             <div className="story__body">
@@ -140,7 +139,7 @@ export default async function HomePage({
               <h2 id="story-h2" className="chamber__title">
                 {t('story.heading')}
               </h2>
-              <ul style={{ listStyle: 'disc', paddingLeft: '1.5rem', marginBottom: 'var(--space-4)' }}>
+              <ul className="story__family">
                 <li>Argentina Ortega</li>
                 <li>Jorge Dawson</li>
                 <li>Eduardo Dawson</li>
