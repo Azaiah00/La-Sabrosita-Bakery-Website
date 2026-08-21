@@ -37,7 +37,10 @@
   min-height: 48px;
   text-decoration: none;
   color: inherit;
-  flex: 0 0 auto;
+  /* Shrinkable, but only after the actions have taken what they need —
+     the wordmark ellipsises rather than shoving the burger off-screen. */
+  flex: 0 1 auto;
+  min-width: 0;
 }
 .site-header__wordmark {
   font-family: var(--font-display);
@@ -45,6 +48,8 @@
   font-weight: 500;
   letter-spacing: -0.01em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 479px) {
@@ -66,8 +71,29 @@
 }
 .site-header__link:hover { color: var(--accent-strong); }
 
-.site-header__actions { display: flex; align-items: center; gap: var(--space-3); margin-inline-start: auto; }
-.site-header__cta { display: none; }
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-inline-start: auto;
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------------------------------
+   SPECIFICITY NOTE — globals.css `@import`s this file from its first
+   lines, so every rule in globals.css cascades AFTER everything here and
+   wins any single-class tie. The CTA carries `.btn`, and `.btn` sets
+   `display: inline-flex`, so a bare `.site-header__cta { display: none }`
+   never applied: the button stayed in the mobile header, shrank to a
+   ~110px stump, broke mid-word, and pushed the burger past the viewport.
+   Two classes is what makes these win. Do not simplify the selectors.
+   --------------------------------------------------------------------- */
+.site-header__inner .site-header__cta {
+  display: none;
+  /* Never absorb the row's overflow: a CTA is a fixed-size object. */
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
 .site-header__burger {
   display: inline-flex;
   align-items: center;
@@ -80,9 +106,22 @@
   cursor: pointer;
 }
 
+/* 640px is the first width with room for the pill beside the brand, the
+   language toggle and the burger. Below it the sticky mobile bar carries
+   the order action, so nothing is lost by dropping the CTA here. */
+@media (min-width: 640px) {
+  .site-header__inner .site-header__cta {
+    display: inline-flex;
+    padding-inline: var(--space-4);
+  }
+}
+
 @media (min-width: 900px) {
   .site-header__nav { display: flex; }
-  .site-header__cta { display: inline-flex; }
+  .site-header__inner .site-header__cta {
+    display: inline-flex;
+    padding-inline: var(--space-6);
+  }
   .site-header__burger { display: none; }
 }
 
@@ -1427,7 +1466,8 @@
   .breakdown__share { grid-column: 1; font-size: var(--t-small); }
   .breakdown__cost { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
   .breakdown__bar { grid-column: 1 / -1; }
-  .page-head { padding-block: var(--space-6) var(--space-4); }
+  /* Doubled class per the specificity note in the header section. */
+  .page-head.page-head { padding-block: var(--space-6) var(--space-4); }
   .portal-page { padding: var(--space-4); }
   .admin { padding-block-end: var(--space-8); }
 }

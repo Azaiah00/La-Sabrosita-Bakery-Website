@@ -227,6 +227,12 @@ h1, h2, h3, .display { font-family: var(--font-display); font-weight: 400; }
   font-size: var(--t-body);
   line-height: 1.2;
   text-align: center;
+  /* The reset above gives every <a> `overflow-wrap: anywhere`, which on a
+     squeezed button reads as "Orde / r a / cake". A label may wrap at a
+     space when it has to, never inside a word. */
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
   cursor: pointer;
   transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
 }
